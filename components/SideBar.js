@@ -17,7 +17,7 @@ const SideBar = () => {
           <Link
             key={item.href}
             href={item.href}
-            className="w-full sm:w-16 h-full sm:h-16 flex flex-col items-center justify-center sm:rounded-full hover:bg-white hover:text-blue-800 transition text-xl"
+            className="w-16 h-16 text-xl flex flex-col items-center justify-center rounded-full hover:rounded-full hover:bg-white hover:text-blue-800 transition "
           >
             <div className="flex flex-col items-center justify-center text-center leading-tight">
               {item.icon}

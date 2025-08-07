@@ -6,7 +6,7 @@ import SearchButtom from "./SearchButtom";
 
 export default function FormContainer() {
   return (
-    <div className=" mb-12">
+    <div className=" mb-12 px-4 sm:px-0">
       <SearchForm />
       <h1 className="text-blue-800 font-semibold text-xl md:text-3xl mt-4 md:mt-8">
         What Are You Looking For?
