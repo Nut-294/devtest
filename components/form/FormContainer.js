@@ -1,20 +1,21 @@
 "use client";
-
 import SearchForm from "./SearchForm";
 import LocationInput from "./LocationInput";
 import OtheInput from "./OtherInput";
 import SearchButtom from "./SearchButtom";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 
 export default function FormContainer() {
   const [location, setLocation] = useState("");
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
   
     try {
-      const url = `/api/search?location=${encodeURIComponent(location)}`;
-  
+      const url = `/api/search?location=${location}`;
       const response = await fetch(url, {
         method: "GET", // ✅ GET ไม่มี body
       });
@@ -26,7 +27,8 @@ export default function FormContainer() {
       const data = await response.json();
       console.log("✅ Response from backend:", data);
   
-      setLocation(""); // ล้าง input
+      setLocation(""); 
+      router.push("/hotel");
     } catch (error) {
       console.error("❌ Error submitting form:", error);
     }
