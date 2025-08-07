@@ -8,19 +8,20 @@ const menuItems = [
   { label: "Trips", href: "/trips", icon: <CiHeart /> },
   { label: "Profile", href: "/profile", icon: <FiUser /> },
 ];
+
 const SideBar = () => {
   return (
-    <nav className="h-screen w-28 bg-blue-800 text-white flex justify-center items-center rounded-r-4xl">
-      <div className="flex flex-col items-center space-y-10">
+    <nav className="fixed bottom-0 sm:static h-[100px] sm:h-screen w-full sm:w-[157px] bg-blue-800 text-white flex sm:flex-col justify-around sm:justify-center items-center sm:items-center rounded-t-4xl sm:rounded-none sm:rounded-r-4xl py-2 sm:py-0 z-50">
+      <div className="flex w-full sm:w-auto flex-row sm:flex-col justify-around sm:space-y-10">
         {menuItems.map((item) => (
           <Link
             key={item.href}
             href={item.href}
-            className="w-16 h-16 flex items-center justify-center rounded-full hover:bg-white hover:text-blue-800 transition text-xl"
+            className="w-full sm:w-16 h-full sm:h-16 flex flex-col items-center justify-center sm:rounded-full hover:bg-white hover:text-blue-800 transition text-xl"
           >
             <div className="flex flex-col items-center justify-center text-center leading-tight">
               {item.icon}
-              <span className="text-xs">{item.label}</span>
+              <span className="text-[10px] sm:text-xs">{item.label}</span>
             </div>
           </Link>
         ))}

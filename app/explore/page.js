@@ -1,32 +1,29 @@
-import SearchForm from '@/components/explore/SearchFrom'
-import Image from 'next/image'
+import FormContainer from "@/components/form/FormContainer";
+import Image from "next/image";
 
 export default function Hero() {
   return (
-    <div className="w-full min-h-screen flex flex-col-reverse lg:flex-row  gap-8 px-6 lg:px-20 lg:py-16 pt-0 pb-16 bg-white">
-      
+    <section className="w-full min-h-screen flex flex-col-reverse sm:flex-row gap-6 sm:gap-8 px-4 sm:px-6 pt-6 sm:pt-0 bg-white">
       {/* ซ้าย: ข้อมูล */}
-      <div className="w-full lg:w-1/2 text-center lg:text-left space-y-6">
-        <SearchForm />
-        <h1 className='text-blue-800 font-semibold text-3xl'>What Are You Looking For?</h1>
-        <div>SEARCH</div>
-        <div>SEARCH</div>
-        <div>SEARCH</div>
-        <div>SEARCH</div>
-       
+      <div className="w-full sm:w-1/2 text-center sm:text-left mt-6 sm:mt-[43px]">
+        <FormContainer />
+
+        RecentSearch
       </div>
 
       {/* ขวา: รูปภาพ */}
-      <div className="w-full lg:w-1/2 flex justify-center">
-        <Image
-          src="/file.svg"
-          alt="Hero"
-          width={600}
-          height={400}
-          className="rounded-xl shadow-lg object-cover w-full max-w-[600px] h-auto"
-          priority
-        />
+      <div className="w-full sm:w-1/2 flex justify-center items-start">
+        <div className="w-full max-w-md sm:max-w-full">
+          <Image
+            src="/Explore.png"
+            alt="Explore"
+            width={982}
+            height={1080}
+            className="rounded-xl object-cover w-full h-auto"
+            priority
+          />
+        </div>
       </div>
-    </div>
-  )
+    </section>
+  );
 }
