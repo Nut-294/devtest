@@ -22,7 +22,7 @@ export default function SearchTabs() {
                 : "text-gray-500"
             }`}
           >
-            <div className="text-3xl">{tab.icon}</div>
+            <div className="text-xl sm:text-3xl ">{tab.icon}</div>
           </button>
           <span>{tab.label}</span>
         </div>
