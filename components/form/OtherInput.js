@@ -1,7 +1,7 @@
 import { FiMapPin } from "react-icons/fi";
 import { CiCalendar } from "react-icons/ci";
 import { FiUsers } from "react-icons/fi";
-export default function OtheInput() {
+export default function OtheInput({location,setLocation}) {
   return (
     <div className="mt-4 grid grid-cols-2">
 
@@ -11,9 +11,10 @@ export default function OtheInput() {
         </span>
         <input
           type="text"
-          placeholder="Pattaya"
-          className="placeholder-black text-xs w-full pl-10 px-4 py-2 md:pl-20 border border-blue-300  rounded-sm focus:ring-blue-800 focus:outline-none focus:ring-1 focus:bg-white cursor-default bg-gray-100"
-          readOnly
+          placeholder="Search Location"
+          value={location}
+          onChange={(e)=>setLocation(e.target.value)}
+          className="placeholder-black text-xs w-full pl-10 px-4 py-2 md:pl-20 border border-blue-300  rounded-sm focus:ring-blue-800 focus:outline-none focus:ring-1 focus:bg-white cursor-default"
         />
       </div>
 

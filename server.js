@@ -7,14 +7,17 @@ const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
 
 nextApp.prepare().then(() => {
+
   const app = express();
+  app.use(express.json());
 
-  // ตัวอย่าง route express
-  app.get("/hello", (req, res) => {
-    res.send("Hello from Express!");
-  });
+  app.get("/api/search", (req, res) => {
+  const location = req.query.location; 
+  console.log("📥 Received location:", location);
+  res.json({ message: "Location received", location });
+});
 
-  // ให้ Next.js handle ทุก route ที่เหลือ
+
   app.all("*", (req, res) => {
     return handle(req, res);
   });
