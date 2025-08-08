@@ -1,9 +1,9 @@
 'use client'
 import { useHotel } from "@/context/HotelContext"
 const RecentSearch = () => {
-    const {hotels} = useHotel()
+    const {country} = useHotel()
   return (
-    <div>{hotels}</div>
+    <div>{country}</div>
   )
 }
 export default RecentSearch

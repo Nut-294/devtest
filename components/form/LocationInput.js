@@ -15,12 +15,14 @@ export default function SearchTabs() {
       {tabs.map((tab) => (
         <div key={tab.id} className="text-center">
           <button
+          type="button"
             onClick={() => setSelected(tab.id)}
             className={`flex flex-col items-center p-3 rounded ${
               selected === tab.id
                 ? "text-white bg-indigo-800 rounded-full"
                 : "text-gray-500"
             }`}
+            readOnly
           >
             <div className="text-xl sm:text-3xl ">{tab.icon}</div>
           </button>
@@ -29,21 +31,4 @@ export default function SearchTabs() {
       ))}
     </div>
   );
-}
-
-{
-  /* <div className="flex justify-around text-sm mt-8">
-{tabs.map(tab => (
-  <button
-    key={tab.id}
-    onClick={() => setSelected(tab.id)}
-    className={`flex flex-col items-center px-3 py-2 rounded ${
-      selected === tab.id ? 'text-blue-600 bg-blue-100 rounded-' : 'text-gray-500'
-    }`}
-  >
-    <div className="text-xl">{tab.icon}</div>
-    <span>{tab.label}</span>
-  </button>
-))}
-</div> */
 }
