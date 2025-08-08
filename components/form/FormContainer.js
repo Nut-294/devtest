@@ -29,12 +29,12 @@ export default function FormContainer() {
 
   return (
     <form onSubmit={handleSubmit} className="mb-12 px-4 sm:px-0">
-      <SearchForm />
+      <SearchForm location={location} setLocation={setLocation} />
       <h1 className="text-blue-800 font-semibold text-xl md:text-3xl mt-4 md:mt-8">
         What Are You Looking For?
       </h1>
       <LocationInput />
-      <OtheInput location={location} setLocation={setLocation} />
+      <OtheInput  />
       <div className="flex justify-center">
         <SearchButtom />
       </div>

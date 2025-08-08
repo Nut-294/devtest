@@ -5,7 +5,7 @@ import { FaPlane } from "react-icons/fa";
 
 export default function Hero() {
   return (
-    <section className="w-full min-h-screen flex flex-col-reverse sm:flex-row gap-6 sm:gap-8 sm:pl-6 pt-6 sm:pt-0 bg-white">
+    <section className="w-full min-h-screen flex flex-col-reverse sm:flex-row gap-6 sm:gap-8 sm:pl-40 pt-6 sm:pt-0 bg-white">
       {/* ซ้าย: ข้อมูล */}
       <div className="w-full sm:w-1/2 text-center sm:text-left mt-6 sm:mt-[43px] sm:pl-6">
         <FormContainer />

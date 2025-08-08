@@ -11,7 +11,7 @@ const menuItems = [
 
 const SideBar = () => {
   return (
-    <nav className="fixed bottom-0 sm:static h-[100px] sm:h-screen w-full sm:w-[157px] bg-blue-800 text-white flex sm:flex-col justify-around sm:justify-center items-center sm:items-center rounded-t-4xl sm:rounded-none sm:rounded-r-4xl py-2 sm:py-0 z-50">
+    <nav className="fixed bottom-0 h-[100px] sm:h-screen w-full sm:w-[157px] bg-blue-800 text-white flex sm:flex-col justify-around sm:justify-center items-center sm:items-center rounded-t-4xl sm:rounded-none sm:rounded-r-4xl py-2 sm:py-0 z-50">
       <div className="flex w-full sm:w-auto flex-row sm:flex-col justify-around sm:space-y-10">
         {menuItems.map((item) => (
           <Link
