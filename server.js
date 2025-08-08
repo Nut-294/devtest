@@ -19,41 +19,32 @@ nextApp.prepare().then(() => {
   // });
 
 
-  //mock api
-  app.get('/api/search', (req, res) => {
-    const count = 100;
-  
-    // รับ location จาก query string
-    const location = req.query.location || '';
-  
-    if (!location) {
-      return res.status(400).json({ errorMsg: 'Missing query parameter: location' });
-    }
-  
-    // สร้างข้อมูลปลอม 100 ตัว
-    const hotels = _.times(count, () => {
-      const city = faker.location.city();
-      const country = faker.location.country();
-  
-      return {
-        city,
-        country,
-        state: faker.location.state(),
-        zipCode: faker.location.zipCode(),
-        hotelName: faker.company.name(),
-        description: faker.lorem.sentence(),
-        imageUrl: faker.image.urlPicsumPhotos({ width: 640, height: 480 }),
-      };
-    });
-  
-    // กรองเฉพาะโรงแรมที่ city หรือ country ตรงกับ location ที่ส่งมา (case insensitive)
-    const filtered = hotels.filter(hotel =>
-      hotel.city.toLowerCase().includes(location.toLowerCase()) ||
-      hotel.country.toLowerCase().includes(location.toLowerCase())
-    );
-  
-    res.json(filtered);
-  });
+  // สร้างข้อมูล mock คงที่แค่ครั้งเดียวตอน server start
+const allHotels = _.times(100, () => ({
+  city: faker.location.city(),
+  country: faker.location.country(),
+  state: faker.location.state(),
+  zipCode: faker.location.zipCode(),
+  hotelName: faker.company.name(),
+  description: faker.lorem.sentence(),
+  imageUrl: faker.image.urlPicsumPhotos({ width: 640, height: 480 }),
+}));
+
+app.get('/api/search', (req, res) => {
+  const location = req.query.location || '';
+
+  if (!location) {
+    return res.status(400).json({ errorMsg: 'Missing query parameter: location' });
+  }
+
+  // กรองจากข้อมูลคงที่
+  const filtered = allHotels.filter(hotel =>
+    hotel.city.toLowerCase().includes(location.toLowerCase()) ||
+    hotel.country.toLowerCase().includes(location.toLowerCase())
+  );
+
+  res.json(filtered);
+});
 
 
 

@@ -14,7 +14,7 @@ export default function FormContainer() {
     e.preventDefault();
     if (!location) return;
 
-    router.push(`/hotel?location=${encodeURIComponent(location)}`);
+    router.push(`/hotel?location=${location}`);
   };
 
   return (
