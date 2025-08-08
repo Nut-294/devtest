@@ -5,35 +5,27 @@ import OtheInput from "./OtherInput";
 import SearchButtom from "./SearchButtom";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-
+import { useHotel } from "@/context/HotelContext";
 
 export default function FormContainer() {
   const [location, setLocation] = useState("");
   const router = useRouter();
+  const { setHotels } = useHotel();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
-      const url = `/api/search?location=${location}`;
-      const response = await fetch(url, {
-        method: "GET", // ✅ GET ไม่มี body
-      });
-  
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-  
-      const data = await response.json();
-      console.log("✅ Response from backend:", data);
-  
-      setLocation(""); 
+      const res = await fetch(`/api/search?location=${location}`);
+      if (!res.ok) throw new Error("Network response was not ok");
+      const dataHotel = await res.json();
+
+      setHotels(dataHotel); 
       router.push("/hotel");
-    } catch (error) {
-      console.error("❌ Error submitting form:", error);
+    } catch (err) {
+      console.error(err);
     }
   };
-  
 
   return (
     <form onSubmit={handleSubmit} className="mb-12 px-4 sm:px-0">

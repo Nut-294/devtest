@@ -1,4 +1,5 @@
 import FormContainer from "@/components/form/FormContainer";
+import RecentSearch from "@/components/RecentSearch";
 import Image from "next/image";
 import { FaPlane } from "react-icons/fa";
 
@@ -9,6 +10,7 @@ export default function Hero() {
       <div className="w-full sm:w-1/2 text-center sm:text-left mt-6 sm:mt-[43px] sm:pl-6">
         <FormContainer />
         RecentSearch
+        <RecentSearch />
       </div>
 
       {/* ขวา: รูปภาพ */}

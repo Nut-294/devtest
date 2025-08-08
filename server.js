@@ -14,7 +14,7 @@ nextApp.prepare().then(() => {
   app.get("/api/search", (req, res) => {
   const location = req.query.location; 
   console.log("📥 Received location:", location);
-  res.json({ message: "Location received", location });
+  res.json( location );
 });
 
 
