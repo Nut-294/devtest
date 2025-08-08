@@ -12,30 +12,64 @@ nextApp.prepare().then(() => {
   const app = express();
   app.use(express.json());
 
-  // app.get("/api/search", (req, res) => {
+  // app.get("/api/search:", (req, res) => {
   //   const location = req.query.location;
   //   console.log("📥 Received location:", location);
   //   res.json(location);
   // });
 
+
   //mock api
-  app.get("/api/search", (req, res) => {
-    const count = 20
-    if (!count) {
-      return res.status(400).send({ errorMsg: " ไม่มี parameter count" });
+  app.get('/api/search', (req, res) => {
+    const count = 100;
+  
+    // รับ location จาก query string
+    const location = req.query.location || '';
+  
+    if (!location) {
+      return res.status(400).json({ errorMsg: 'Missing query parameter: location' });
     }
-    res.send(
-      _.times(count, () => {
-        const address = faker.location;
-        return {
-          country: address.country(),
-          city: address.city(),
-          state: address.state(),
-          zipCode: address.zipCode(),
-        };
-      })
+  
+    // สร้างข้อมูลปลอม 100 ตัว
+    const hotels = _.times(count, () => {
+      const city = faker.location.city();
+      const country = faker.location.country();
+  
+      return {
+        city,
+        country,
+        state: faker.location.state(),
+        zipCode: faker.location.zipCode(),
+        hotelName: faker.company.name(),
+        description: faker.lorem.sentence(),
+        imageUrl: faker.image.urlPicsumPhotos({ width: 640, height: 480 }),
+      };
+    });
+  
+    // กรองเฉพาะโรงแรมที่ city หรือ country ตรงกับ location ที่ส่งมา (case insensitive)
+    const filtered = hotels.filter(hotel =>
+      hotel.city.toLowerCase().includes(location.toLowerCase()) ||
+      hotel.country.toLowerCase().includes(location.toLowerCase())
     );
+  
+    res.json(filtered);
   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   app.all("*", (req, res) => {
     return handle(req, res);

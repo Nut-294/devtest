@@ -5,26 +5,16 @@ import OtheInput from "./OtherInput";
 import SearchButtom from "./SearchButtom";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useHotel } from "@/context/HotelContext";
 
 export default function FormContainer() {
   const [location, setLocation] = useState("");
   const router = useRouter();
-  const { setHotels } = useHotel();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    if (!location) return;
 
-    try {
-      const res = await fetch(`/api/search?location=${location}`);
-      if (!res.ok) throw new Error("Network response was not ok");
-      const dataHotel = await res.json();
-
-      setHotels(dataHotel); 
-      router.push("/hotel");
-    } catch (err) {
-      console.error(err);
-    }
+    router.push(`/hotel?location=${encodeURIComponent(location)}`);
   };
 
   return (
@@ -34,7 +24,7 @@ export default function FormContainer() {
         What Are You Looking For?
       </h1>
       <LocationInput />
-      <OtheInput  />
+      <OtheInput />
       <div className="flex justify-center">
         <SearchButtom />
       </div>
