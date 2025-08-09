@@ -30,7 +30,7 @@ const SearchHotel = () => {
     <form className="flex-grow w-full" onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder="Search hotels"
+        placeholder="Search city , Country, Place for Travel advisory"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         className="w-full border border-gray-300 bg-gray-100 px-4 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-100"

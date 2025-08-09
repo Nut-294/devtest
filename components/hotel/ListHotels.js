@@ -5,6 +5,13 @@ const ListHotels = ({ hotels }) => {
     {hotels.map((hotel,index)=>{
       return <CardHotel key={index} city={hotel.city} description={hotel.description} image={hotel.imageUrl} price={hotel.price} country={hotel.country}/>
     })}
+
+    {/* <CardHotel/>
+    <CardHotel/>
+    <CardHotel/>
+    <CardHotel/>
+    <CardHotel/>
+    <CardHotel/> */}
     </div>
   );
 };

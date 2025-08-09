@@ -25,7 +25,7 @@ export default function FormContainer() {
       </h1>
       <LocationInput />
       <OtheInput />
-      <div className="flex justify-center">
+      <div className="flex justify-center mt-8">
         <SearchButtom />
       </div>
     </form>
