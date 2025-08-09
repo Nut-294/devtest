@@ -4,12 +4,13 @@ import { FaAngleLeft } from "react-icons/fa6";
 import SearchHotel from "@/components/hotel/SearchHotel";
 import ListRecom from "@/components/hotel/ListRecom";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useState,useEffect } from "react";
 import Link from "next/link";
 
 const Hotels = () => {
   const searchParams = useSearchParams();
   const location = searchParams.get("location") || "";
+  const [hotels, setHotels] = useState([]);
   useEffect(() => {
     const fetchDataSearch = async () => {
       try {
@@ -17,6 +18,7 @@ const Hotels = () => {
           `http://localhost:3000/api/search?location=${location}`
         );
         const data = await res.json();
+        setHotels(data);
         console.log("data", data);
       } catch (err) {
         console.log("err.message", err.message);
@@ -75,7 +77,7 @@ const Hotels = () => {
               </div>
             </div>
 
-            {/* <ListHotels /> */}
+            <ListHotels  hotels={hotels}/>
           </div>
         </div>
 
@@ -91,24 +93,3 @@ const Hotels = () => {
 
 export default Hotels;
 
-// useEffect(() => {
-//   fetchDataSearch();
-// }, []);
-
-// const fetchDataSearch = async () => {
-//   try {
-//     const res = await fetch(
-//       `http://localhost:3000/api/search?location=${encodeURIComponent(
-//         location
-//       )}`
-//     );
-//     if (!res.ok) {
-//       const err = await res.json();
-//       throw new Error(err.errorMsg || "Failed to fetch");
-//     }
-//     const data = await res.json();
-//     console.log("data", data);
-//   } catch (err) {
-//     console.log(err.message);
-//   }
-// };

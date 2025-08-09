@@ -1,17 +1,12 @@
 import CardHotel from "./CardHotel";
-const ListHotels = () => {
+const ListHotels = ({ hotels }) => {
+  // const { city, country, description, hotelName, imageUrl, state, zipCode } = hotels;
+  console.log("hotels", hotels);
   return (
     <div className="w-full grid grid-cols-1 px-4 sm:px-0 sm:grid-cols-3 gap-4">
-      <CardHotel />
-      <CardHotel />
-      <CardHotel />
-      <CardHotel />
-      <CardHotel />
-      <CardHotel />
-      <CardHotel />
-      <CardHotel />
-      <CardHotel />
-      <CardHotel />
+    {hotels.map((hotel,index)=>{
+      return <CardHotel key={index} city={hotel.city} description={hotel.description} image={hotel.imageUrl}/>
+    })}
     </div>
   );
 };

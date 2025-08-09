@@ -20,14 +20,14 @@ nextApp.prepare().then(() => {
 
 
   // สร้างข้อมูล mock คงที่แค่ครั้งเดียวตอน server start
-const allHotels = _.times(100, () => ({
+const allHotels = _.times(200, () => ({
   city: faker.location.city(),
   country: faker.location.country(),
   state: faker.location.state(),
   zipCode: faker.location.zipCode(),
   hotelName: faker.company.name(),
   description: faker.lorem.sentence(),
-  imageUrl: faker.image.urlPicsumPhotos({ width: 640, height: 480 }),
+  imageUrl: `https://picsum.photos/400/200?random=${faker.number.int(1000)}`,
 }));
 
 app.get('/api/search', (req, res) => {
