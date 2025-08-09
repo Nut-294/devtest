@@ -14,9 +14,11 @@ const Hotels = () => {
   useEffect(() => {
     const fetchDataSearch = async () => {
       try {
-        const res = await fetch(
-          `http://localhost:3000/api/search?location=${location}`
-        );
+        const url = location
+          ? `http://localhost:3000/api/search?location=${location}`
+          : `http://localhost:3000/api/search`;
+  
+        const res = await fetch(url);
         const data = await res.json();
         setHotels(data);
         console.log("data", data);
@@ -24,9 +26,10 @@ const Hotels = () => {
         console.log("err.message", err.message);
       }
     };
-
+  
     fetchDataSearch();
   }, [location]);
+  
 
   return (
     <section className="sm:pl-44 px-4 mt-8">

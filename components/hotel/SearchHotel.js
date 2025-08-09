@@ -11,13 +11,17 @@ const SearchHotel = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!search.trim()) return;
 
     // clone params เดิม
     const params = new URLSearchParams(searchParams.toString());
 
-    // แทนค่าของ location เดิม
-    params.set("location", search);
+    if (!search.trim()) {
+      // ถ้ากรอกว่าง ให้ลบ location ออกจาก params
+      params.delete("location");
+    } else {
+      // ถ้ามีค่า location ให้ตั้งค่าใหม่
+      params.set("location", search.trim());
+    }
 
     router.push(`/hotel?${params.toString()}`);
   };

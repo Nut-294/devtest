@@ -20,7 +20,7 @@ nextApp.prepare().then(() => {
 
 
   // สร้างข้อมูล mock คงที่แค่ครั้งเดียวตอน server start
-const allHotels = _.times(200, () => ({
+const allHotels = _.times(300, () => ({
   city: faker.location.city(),
   country: faker.location.country(),
   state: faker.location.state(),
@@ -31,16 +31,20 @@ const allHotels = _.times(200, () => ({
 }));
 
 app.get('/api/search', (req, res) => {
-  const location = req.query.location || '';
+  const location = req.query.location;
 
-  if (!location) {
-    return res.status(400).json({ errorMsg: 'Missing query parameter: location' });
+  // ถ้า location ไม่มี หรือ เป็นค่าว่าง
+  if (!location || location.trim() === '') {
+    // ส่ง allHotels ทั้งหมดกลับไปเลย
+    return res.json(allHotels);
   }
 
   // กรองจากข้อมูลคงที่
   const filtered = allHotels.filter(hotel =>
     hotel.city.toLowerCase().includes(location.toLowerCase()) ||
-    hotel.country.toLowerCase().includes(location.toLowerCase())
+    hotel.country.toLowerCase().includes(location.toLowerCase())||
+    hotel.state.toLowerCase().includes(location.toLowerCase())||
+    hotel.hotelName.toLowerCase().includes(location.toLowerCase())
   );
 
   res.json(filtered);
