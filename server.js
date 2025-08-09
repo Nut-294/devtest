@@ -28,6 +28,7 @@ const allHotels = _.times(300, () => ({
   hotelName: faker.company.name(),
   description: faker.lorem.sentence(),
   imageUrl: `https://picsum.photos/400/200?random=${faker.number.int(1000)}`,
+  price: faker.number.int({ min: 1000, max: 5000 })
 }));
 
 app.get('/api/search', (req, res) => {

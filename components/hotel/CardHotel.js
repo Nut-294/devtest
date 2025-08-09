@@ -1,23 +1,21 @@
+
+
 import Image from "next/image";
 import React from "react";
 
-function CardHotel({ city, description ,image}) {
+function CardHotel({ city, description, image, price, country }) {
   return (
     <div>
-      <div className="bg-green-100 rounded-md">
-        <Image
-          src={image}
-          alt={`${image}`}
-          width={400}
-          height={200}
-        />
+      <div className="bg-gray-100 rounded-md">
+        <Image src={image} alt={`${image}`} width={400} height={200} />
       </div>
-      <div className="flex justify-between">
+      <div className="sm:flex justify-between">
         <div>
-          <p>{city}</p>
-          <p className="text-xs">{description}</p>
+          <p>{country.length > 15 ? country.slice(0, 10) + "..." : country}</p>
+
+          <p className="text-xs">Price starts from {price.toLocaleString()}</p>
         </div>
-        <button type="button" className="text-blue-800  px-8 py-2 shadow-md">
+        <button type="button" className="text-blue-800 px-8 py-2 shadow-md">
           View Details
         </button>
       </div>
@@ -26,3 +24,28 @@ function CardHotel({ city, description ,image}) {
 }
 
 export default CardHotel;
+
+// import Image from "next/image";
+// import React from "react";
+
+// function CardHotel({ city, description, image, price, country }) {
+//   return (
+//     <div>
+//       <div className="bg-gray-100 rounded-md">
+//         <Image src="/Explore.png" alt="/Explore.png" width={400} height={200} />
+//       </div>
+//       <div className="sm:flex justify-between">
+//         <div>
+//           <p>AAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+
+//           <p className="text-xs">Price starts from AAAAAAAAAAAAAAAAA</p>
+//         </div>
+//         <button type="button" className="text-blue-800 px-8 py-2 shadow-md">
+//           View Details
+//         </button>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default CardHotel;

@@ -58,7 +58,7 @@ const Hotels = () => {
               <ListRecom />
             </aside>
 
-            <div className="flex flex-wrap items-center mt-6 mb-4">
+            <div className="flex flex-wrap items-center mt-6 mb-4 px-4 sm:px-0">
               <h3 className="text-lg font-semibold">
                 Best places to enjoy Stay
               </h3>
