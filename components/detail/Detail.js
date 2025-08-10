@@ -94,7 +94,7 @@ const Detail = ({ hotel }) => {
             <div className="flex items-center w-full sm:w-auto">
               <Link
                 href="/hotel"
-                className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex justify-center items-center"
+                className="w-10 h-10 sm:mr-4 rounded-full bg-gray-100 hover:bg-gray-200 flex justify-center items-center"
               >
                 <FaAngleLeft />
               </Link>
