@@ -10,10 +10,14 @@ import ReviewCard from "@/components/detail/ReviewCard";
 const Detail = ({ hotel }) => {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
-  const [guests, setGuests] = useState("2 adult, 0 children - 1 room");
+  const [adults, setAdults] = useState(2);
+  const [children, setChildren] = useState(0);
+  const [rooms, setRooms] = useState(1);
   const [focusField, setFocusField] = useState(null);
   const [error, setError] = useState("");
-
+  const [guestsInput, setGuestsInput] = useState(
+    `${adults} adult, ${children} children - ${rooms} room`
+  );
   const today = new Date().toISOString().split("T")[0];
 
   const formatDate = (dateString) => {
@@ -30,7 +34,17 @@ const Detail = ({ hotel }) => {
     else setCheckOut(value);
   };
 
-  // ฟังก์ชัน Validate
+  const handleGuestsChange = (value) => {
+    setGuestsInput(value);
+    const match = value.match(
+      /(\d+)\s*adult.*?(\d+)\s*children.*?(\d+)\s*room/i
+    );
+    if (match) {
+      setAdults(parseInt(match[1], 10));
+      setChildren(parseInt(match[2], 10));
+      setRooms(parseInt(match[3], 10));
+    }
+  };
   const validateBooking = () => {
     const todayDate = new Date(today);
     const inDate = new Date(checkIn);
@@ -52,31 +66,29 @@ const Detail = ({ hotel }) => {
       setError("Check-out date must be after check-in date.");
       return false;
     }
-    if (!guests.trim()) {
+    if (adults <= 0 && children <= 0) {
       setError("Please enter number of guests.");
       return false;
     }
 
-    setError(""); // clear error
+    setError("");
     return true;
   };
 
   const handleBookNow = (roomType) => {
     if (!validateBooking()) return;
-    window.location.href = `/review-hotel/${hotel.id}?roomType=${roomType}&checkIn=${checkIn}&checkOut=${checkOut}&guests=${guests}`;
+    window.location.href = `/review-hotel/${hotel.id}?roomType=${roomType}&checkIn=${checkIn}&checkOut=${checkOut}&adults=${adults}&children=${children}&rooms=${rooms}`;
   };
 
   return (
     <section className="mx-auto w-full">
       <div className="bg-blue-50 sm:pl-44 px-4 pt-8">
-        {/* Error Message */}
         {error && (
           <div className="bg-red-100 text-red-700 px-4 py-2 mb-4 rounded">
             {error}
           </div>
         )}
 
-        {/* Header Search */}
         <div className="pb-2">
           <div className="flex flex-col sm:flex-row items-center mb-1 ">
             <div className="flex items-center w-full sm:w-auto">
@@ -93,7 +105,6 @@ const Detail = ({ hotel }) => {
             </div>
           </div>
 
-          {/* Search Inputs */}
           <div className="flex flex-col sm:flex-row mb-4 mt-6 gap-8 w-full">
             <input
               type="text"
@@ -122,11 +133,12 @@ const Detail = ({ hotel }) => {
               min={checkIn || today}
               className="text-xs px-4 py-2 rounded-sm placeholder-black bg-white border border-gray-300 focus:outline-none sm:flex-grow"
             />
+
             <input
               type="text"
               placeholder="2 adult, 0 children - 1 room"
-              value={guests}
-              onChange={(e) => setGuests(e.target.value)}
+              value={guestsInput} // <-- ใช้ guestsInput แทน
+              onChange={(e) => handleGuestsChange(e.target.value)}
               className="placeholder-black bg-white border border-gray-300 px-4 py-2 sm:flex-grow"
             />
             <SearchButton />
@@ -139,12 +151,28 @@ const Detail = ({ hotel }) => {
         <div className="sm:w-4/6 w-full">
           {/* Images */}
           <div className="grid grid-cols-2 gap-x-4 gap-y-0">
-            <img src={hotel.imageUrl} alt={hotel.country} className="object-cover w-full h-full row-span-2" />
+            <img
+              src={hotel.imageUrl}
+              alt={hotel.country}
+              className="object-cover w-full h-full row-span-2"
+            />
             <div className="grid gap-4">
-              <img src={hotel.imageUrl} alt={hotel.country} className="object-cover w-full h-full" />
+              <img
+                src={hotel.imageUrl}
+                alt={hotel.country}
+                className="object-cover w-full h-full"
+              />
               <div className="grid grid-cols-2 gap-x-4 gap-y-0">
-                <img src={hotel.imageUrl} alt={hotel.country} className="object-cover w-full h-full" />
-                <img src={hotel.imageUrl} alt={hotel.country} className="object-cover w-full h-full" />
+                <img
+                  src={hotel.imageUrl}
+                  alt={hotel.country}
+                  className="object-cover w-full h-full"
+                />
+                <img
+                  src={hotel.imageUrl}
+                  alt={hotel.country}
+                  className="object-cover w-full h-full"
+                />
               </div>
             </div>
           </div>
@@ -163,10 +191,16 @@ const Detail = ({ hotel }) => {
           {/* Room Types */}
           <div className="mt-4 sm:mt-8 flex gap-2 sm:gap-28 w-full">
             <div className="w-1/2 border border-black rounded-sm flex flex-col sm:flex-row">
-              <img src={hotel.imageUrl} alt={hotel.country} className="w-full sm:w-32 h-24" />
+              <img
+                src={hotel.imageUrl}
+                alt={hotel.country}
+                className="w-full sm:w-32 h-24"
+              />
               <div className="flex-grow">
                 <p className="px-2 sm:py-2 text-sm ">Standard Room</p>
-                <p className="px-2 sm:text-2xl sm:font-bold text-blue-600">{hotel.price}</p>
+                <p className="px-2 sm:text-2xl sm:font-bold text-blue-600">
+                  {hotel.price}
+                </p>
               </div>
               <button
                 onClick={() => handleBookNow("Standard")}
@@ -177,10 +211,16 @@ const Detail = ({ hotel }) => {
             </div>
 
             <div className="w-1/2 border border-black rounded-sm flex flex-col sm:flex-row">
-              <img src={hotel.imageUrl} alt={hotel.country} className="w-full sm:w-32 h-24" />
+              <img
+                src={hotel.imageUrl}
+                alt={hotel.country}
+                className="w-full sm:w-32 h-24"
+              />
               <div className="flex-grow">
                 <p className="px-2 sm:py-2 text-sm ">Deluxe</p>
-                <p className="px-2 sm:text-2xl sm:font-bold text-blue-600">{hotel.price}</p>
+                <p className="px-2 sm:text-2xl sm:font-bold text-blue-600">
+                  {hotel.price}
+                </p>
               </div>
               <button
                 onClick={() => handleBookNow("Deluxe")}
@@ -192,7 +232,6 @@ const Detail = ({ hotel }) => {
           </div>
         </div>
 
-        {/* Right Side */}
         <div className="sm:w-2/6 w-full flex justify-center">
           <div className="mt-8 sm:mt-0 px-4 sm:px-0">
             <ReviewCard className="shadow-2xl" />
