@@ -6,28 +6,18 @@ import ListRecom from "@/components/hotel/ListRecom";
 import { useSearchParams } from "next/navigation";
 import { useState,useEffect } from "react";
 import Link from "next/link";
+import { fetchHotels } from "@/action/action";
 
 const Hotels = () => {
   const searchParams = useSearchParams();
   const location = searchParams.get("location") || "";
   const [hotels, setHotels] = useState([]);
   useEffect(() => {
-    const fetchDataSearch = async () => {
-      try {
-        const url = location
-          ? `http://localhost:3000/api/search?location=${location}`
-          : `http://localhost:3000/api/search`;
-  
-        const res = await fetch(url);
-        const data = await res.json();
-        setHotels(data);
-        console.log("data", data);
-      } catch (err) {
-        console.log("err.message", err.message);
-      }
+    const loadHotels = async () => {
+      const data = await fetchHotels(location);
+      setHotels(data);
     };
-  
-    fetchDataSearch();
+    loadHotels();
   }, [location]);
   
 

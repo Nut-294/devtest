@@ -4,11 +4,11 @@ import SearchButton from "@/components/form/SearchButtom";
 import Link from "next/link";
 import { FaAngleLeft } from "react-icons/fa";
 import ReviewCard from "@/components/detail/ReviewCard";
-import { fetchhotelDetail } from "@/action/action";
+import { fetchHotelDetail } from "@/action/action";
 
 const Details = async ({ params }) => {
   const { id } = await params;
-  const hotel = await fetchhotelDetail({ id });
+  const hotel = await fetchHotelDetail({ id });
   console.log("hotel", hotel);
   return (
     <section className="mx-auto w-full">
@@ -96,7 +96,7 @@ const Details = async ({ params }) => {
           </div>
 
           <div className="mt-4 sm:mt-8 flex gap-2 sm:gap-28 w-full">
-            <div className="w-1/2 border border-black rounded-sm flex flex-col sm:flex-row">
+            {/* <div className="w-1/2 border border-black rounded-sm flex flex-col sm:flex-row">
               <img
                 src={hotel.imageUrl}
                 alt={hotel.country}
@@ -108,10 +108,13 @@ const Details = async ({ params }) => {
                   {hotel.price}
                 </p>
               </div>
-              <button className="bg-blue-600 text-white rounded-sm text-sm text-center px-2 py-1 sm:py-2 sm:[writing-mode:vertical-lr]">
+              <Link
+                href={`/review-hotel/${hotel.id}?roomType=Deluxe Room&checkIn=${checkIn}&checkOut=${checkOut}&guests=${guests}`}
+                className="bg-blue-600 text-white rounded-sm px-4 py-2"
+              >
                 Book Now
-              </button>
-            </div>
+              </Link>
+            </div> */}
 
             <div className="w-1/2 border border-black rounded-sm flex flex-col sm:flex-row">
               <img
@@ -125,10 +128,32 @@ const Details = async ({ params }) => {
                   {hotel.price}
                 </p>
               </div>
-              <button className="bg-blue-600 text-white rounded-sm text-sm text-center px-2 py-1 sm:py-2 sm:[writing-mode:vertical-lr]">
+              <button
+                className="bg-blue-600 text-white rounded-sm text-center px-2 py-1 sm:py-2 sm:[writing-mode:vertical-lr]"
+              >
                 Book Now
               </button>
             </div>
+            <div className="w-1/2 border border-black rounded-sm flex flex-col sm:flex-row">
+              <img
+                src={hotel.imageUrl}
+                alt={hotel.country}
+                className="w-full sm:w-32 h-24"
+              />
+              <div className="flex-grow">
+                <p className="px-2 sm:py-2 text-sm ">Standard Room</p>
+                <p className="px-2 sm:text-2xl sm:font-bold text-blue-600">
+                  {hotel.price}
+                </p>
+              </div>
+              <button
+                className="bg-blue-600 text-white rounded-sm text-center px-2 py-1 sm:py-2 sm:[writing-mode:vertical-lr]"
+              >
+                Book Now
+              </button>
+            </div>
+
+
           </div>
         </div>
 
@@ -147,3 +172,27 @@ const Details = async ({ params }) => {
 };
 
 export default Details;
+
+
+
+
+
+{/* <div className="w-1/2 border border-black rounded-sm flex flex-col sm:flex-row">
+<img
+  src={hotel.imageUrl}
+  alt={hotel.country}
+  className="w-full sm:w-32 h-24"
+/>
+<div className="flex-grow">
+  <p className="px-2 sm:py-2 text-sm ">Standard Room</p>
+  <p className="px-2 sm:text-2xl sm:font-bold text-blue-600">
+    {hotel.price}
+  </p>
+</div>
+<Link
+  href={`/review-hotel/${hotel.id}?roomType=Deluxe Room&checkIn=${checkIn}&checkOut=${checkOut}&guests=${guests}`}
+  className="bg-blue-600 text-white rounded-sm px-4 py-2"
+>
+  Book Now
+</Link>
+</div> */}
