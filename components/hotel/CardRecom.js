@@ -1,23 +1,26 @@
 import React from "react";
 import Image from "next/image";
-function CardRecom({width,height}) {
+import Link from "next/link";
+function CardRecom({id,city,country,image}) {
   return (
-    <div>
-      <div className="bg-red-100 rounded-md">
+    <article>
+    <Link href={`explore-hotel/${id}`}>
+      <div className="bg-white rounded-md">
         <Image
-          src="/Explore_full"
-          alt="Explore_full"
+          src={image}
+          alt={`${image}`}
           width={300}
           height={200}
         />
       </div>
       <div className="flex justify-between">
         <div>
-          <p>AAAA</p>
-          <p className="text-xs">AAAA</p>
+          <p>{city}</p>
+          <p className="text-xs">{country}</p>
         </div>
       </div>
-    </div>
+    </Link>
+    </article>
   );
 }
 

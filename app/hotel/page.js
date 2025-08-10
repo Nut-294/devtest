@@ -25,8 +25,8 @@ const Hotels = () => {
     <section className="sm:pl-44 px-4 mt-8">
       <div className="flex flex-col md:flex-row">
         {/* ซ้าย */}
-        <div className="flex-grow max-w-[1100px] w-full">
-          <div className="max-w-[1100px] w-full">
+        <div className="flex-grow w-full">
+          <div className="max-w-[1100px] ">
             <div className="w-full flex flex-col sm:flex-row">
               <div className="w-10 h-10 sm:mr-4  rounded-full flex-shrink-0 bg-gray-100 hover:bg-gray-200 flex justify-center items-center mb-2 sm:mb-0">
                 <Link href="/explore">
@@ -38,14 +38,14 @@ const Hotels = () => {
               </h2>
 
               <div className="flex-1">
-                <SearchHotel />
+                <SearchHotel  />
               </div>
             </div>
 
             {/* Recommended บรรทัดใหม่บน xs */}
             <aside className="block md:hidden mt-4 p-4 bg-gray-100 rounded">
               Recommended
-              <ListRecom />
+              <ListRecom  hotels={hotels}/>
             </aside>
 
             <div className="flex flex-wrap items-center mt-6 mb-4 px-4 sm:px-0">
@@ -70,14 +70,14 @@ const Hotels = () => {
               </div>
             </div>
 
-            <ListHotels  hotels={hotels}/>
+            <ListHotels  hotels={hotels} className="w-full"/>
           </div>
         </div>
 
         {/* Recommended ฝั่งขวาบน md+ */}
         <aside className="hidden md:block w-[286px] sm:ml-6 mt-12 p-4 bg-gray-100 rounded">
           Recommended
-          <ListRecom />
+          <ListRecom hotels={hotels}/>
         </aside>
       </div>
     </section>

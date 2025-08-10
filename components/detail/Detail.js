@@ -204,7 +204,7 @@ const Detail = ({ hotel }) => {
               </div>
               <button
                 onClick={() => handleBookNow("Standard")}
-                className="bg-blue-600 text-white rounded-sm px-4 py-2 text-center sm:[writing-mode:vertical-lr]"
+                className="bg-blue-600 text-white cursor-pointer rounded-sm px-4 py-2 text-center sm:[writing-mode:vertical-lr]"
               >
                 Book Now
               </button>
@@ -224,7 +224,7 @@ const Detail = ({ hotel }) => {
               </div>
               <button
                 onClick={() => handleBookNow("Deluxe")}
-                className="bg-blue-600 text-white rounded-sm px-4 py-2 text-center sm:[writing-mode:vertical-lr]"
+                className="bg-blue-600 text-white cursor-pointer rounded-sm px-4 py-2 text-center sm:[writing-mode:vertical-lr]"
               >
                 Book Now
               </button>
