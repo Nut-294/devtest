@@ -28,11 +28,13 @@
 
 
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
-function CardHotel({ city, description, image, price, country }) {
+function CardHotel({id, city, description, image, price, country }) {
   return (
-    <div>
+    <article>
+      <Link href={`explore-hotel/${id}`} >
       <div className="bg-gray-100 rounded-md">
         <Image src={image} alt={`${image}`} width={400} height={200} />
       </div>
@@ -46,7 +48,8 @@ function CardHotel({ city, description, image, price, country }) {
           View Details
         </button>
       </div>
-    </div>
+      </Link>
+    </article>
   );
 }
 

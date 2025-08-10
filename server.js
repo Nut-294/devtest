@@ -20,7 +20,8 @@ nextApp.prepare().then(() => {
 
 
   // สร้างข้อมูล mock คงที่แค่ครั้งเดียวตอน server start
-const allHotels = _.times(300, () => ({
+const allHotels = _.times(300, (index) => ({
+  id: index + 1,
   city: faker.location.city(),
   country: faker.location.country(),
   state: faker.location.state(),
@@ -30,6 +31,21 @@ const allHotels = _.times(300, () => ({
   imageUrl: `https://picsum.photos/400/200?random=${faker.number.int(1000)}`,
   price: faker.number.int({ min: 1000, max: 5000 })
 }));
+
+
+app.get('/api/hotel/:id', (req, res) => {
+  const { id } = req.params
+  const hotel = allHotels.find(hotel => hotel.id.toString() === id);
+
+  if (!hotel) {
+    return res.status(404).json({ error: 'Hotel not found' });
+  }
+  res.json(hotel);
+});
+
+
+
+
 
 app.get('/api/search', (req, res) => {
   const location = req.query.location;

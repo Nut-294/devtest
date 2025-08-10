@@ -4,8 +4,12 @@ import SearchButton from "@/components/form/SearchButtom";
 import Link from "next/link";
 import { FaAngleLeft } from "react-icons/fa";
 import ReviewCard from "@/components/detail/ReviewCard";
+import { fetchhotelDetail } from "@/action/action";
 
-const Details = () => {
+const Details = async ({ params }) => {
+  const { id } = await params;
+  const hotel = await fetchhotelDetail({ id });
+  console.log("hotel", hotel);
   return (
     <section className="mx-auto w-full">
       <div className="bg-blue-50  sm:pl-44 px-4 pt-8">
@@ -48,11 +52,11 @@ const Details = () => {
       <div className="flex flex-col justify-center mx-auto xl:flex-row sm:pl-44 px-4">
         {/* ฝั่งซ้าย */}
         <div className="sm:w-4/6 w-full">
-        <div className="grid gap-4 grid-cols-2">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-0">
             {/* รูปใหญ่ฝั่งซ้าย */}
             <img
-              src="/Explore_full.png"
-              alt="Explore"
+              src={hotel.imageUrl}
+              alt={hotel.country}
               className="object-cover w-full h-full row-span-2"
             />
 
@@ -60,45 +64,48 @@ const Details = () => {
             <div className="grid gap-4">
               {/* รูปบน */}
               <img
-                src="/Explore_full.png"
-                alt="Explore"
+                src={hotel.imageUrl}
+                alt={hotel.country}
                 className="object-cover w-full h-full"
               />
 
               {/* แถวล่างเป็น 2 รูปติดกัน */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-x-4 gap-y-0">
                 <img
-                  src="/Explore_full.png"
-                  alt="Explore"
+                  src={hotel.imageUrl}
+                  alt={hotel.country}
                   className="object-cover w-full h-full"
                 />
                 <img
-                  src="/Explore_full.png"
-                  alt="Explore"
+                  src={hotel.imageUrl}
+                  alt={hotel.country}
                   className="object-cover w-full h-full"
                 />
               </div>
             </div>
           </div>
 
-
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
             <div>
-              <div className="text-2xl">country</div>
-              <div>description</div>
+              <div className="text-2xl">{hotel.country}</div>
+              <div>{hotel.description}</div>
             </div>
             <div className="py-2 pl-2 sm:px-4 sm:py-2 mr-6 sm:mr-0 border text-sm sm:text-base border-blue-500 bg-white text-blue-800 rounded-sm">
-              Price Starting from 1000 Bath
+              Price Starting from {hotel.price} Bath
             </div>
           </div>
 
           <div className="mt-4 sm:mt-8 flex gap-2 sm:gap-28 w-full">
             <div className="w-1/2 border border-black rounded-sm flex flex-col sm:flex-row">
-              <img src={"/Explore_full.png"} className="w-full sm:w-32 h-24" />
+              <img
+                src={hotel.imageUrl}
+                alt={hotel.country}
+                className="w-full sm:w-32 h-24"
+              />
               <div className="flex-grow">
                 <p className="px-2 sm:py-2 text-sm ">Deluxe Room</p>
                 <p className="px-2 sm:text-2xl sm:font-bold text-blue-600">
-                  1500 Bath
+                  {hotel.price}
                 </p>
               </div>
               <button className="bg-blue-600 text-white rounded-sm text-sm text-center px-2 py-1 sm:py-2 sm:[writing-mode:vertical-lr]">
@@ -107,11 +114,15 @@ const Details = () => {
             </div>
 
             <div className="w-1/2 border border-black rounded-sm flex flex-col sm:flex-row">
-              <img src={"/Explore_full.png"} className="w-full sm:w-32 h-24" />
+              <img
+                src={hotel.imageUrl}
+                alt={hotel.country}
+                className="w-full sm:w-32 h-24"
+              />
               <div className="flex-grow">
-                <p className="px-2 sm:py-2 text-sm ">Deluxe Room</p>
+                <p className="px-2 sm:py-2 text-sm ">Standard Room</p>
                 <p className="px-2 sm:text-2xl sm:font-bold text-blue-600">
-                  1500 Bath
+                  {hotel.price}
                 </p>
               </div>
               <button className="bg-blue-600 text-white rounded-sm text-sm text-center px-2 py-1 sm:py-2 sm:[writing-mode:vertical-lr]">
