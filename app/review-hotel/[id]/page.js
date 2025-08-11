@@ -3,9 +3,68 @@ import SearchButton from "@/components/form/SearchButtom";
 import SearchHotel from "@/components/hotel/SearchHotel";
 import Link from "next/link";
 import { FaAngleLeft } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams, useSearchParams } from "next/navigation";
 
 const Page = () => {
+  const params = useParams();
+  const searchParams = useSearchParams();
+  const [hotelData, setHotelData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const [data, setData] = useState({
+    id: "",
+    roomType: "",
+    checkIn: "",
+    checkOut: "",
+    adults: "",
+    children: "",
+    rooms: "",
+  });
+
+  useEffect(() => {
+    setData({
+      id: params.id,
+      roomType: searchParams.get("roomType") || "",
+      checkIn: searchParams.get("checkIn") || "",
+      checkOut: searchParams.get("checkOut") || "",
+      adults: searchParams.get("adults") || "",
+      children: searchParams.get("children") || "",
+      rooms: searchParams.get("rooms") || "",
+    });
+  }, [params, searchParams]);
+
+  useEffect(() => {
+    if (data.id && data.roomType && data.checkIn && data.checkOut) {
+      const nights = getNightCount(data.checkIn, data.checkOut);
+
+      const fetchHotelData = async () => {
+        try {
+          const res = await fetch("/api/hotel/calculate", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              id: data.id,
+              roomType: data.roomType,
+              nights,
+            }),
+          });
+          const result = await res.json();
+          setHotelData(result);
+        } catch (error) {
+          console.error("Error fetching hotel data:", error);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchHotelData();
+    }
+  }, [data]);
+
+  console.log("data", data);
   // State สำหรับเก็บข้อมูลฟิลด์ Guest Details
   const [guest, setGuest] = useState({
     firstName: "",
@@ -56,10 +115,18 @@ const Page = () => {
     return valid;
   };
 
+  // ฟังก์ชันคำนวนวัน
+  const getNightCount = (checkIn, checkOut) => {
+    const start = new Date(checkIn);
+    const end = new Date(checkOut);
+    const diffTime = end - start;
+    return Math.max(1, diffTime / (1000 * 60 * 60 * 24)); // อย่างน้อย 1 คืน
+  };
+
   // ฟังก์ชันจัดการกดปุ่ม Continue
   const handleContinue = (e) => {
     if (!validateGuestDetails()) {
-      e.preventDefault(); 
+      e.preventDefault();
     }
   };
 
@@ -91,17 +158,23 @@ const Page = () => {
             />
             <input
               placeholder="Check-in"
+              value={data.checkIn}
               className="text-xs px-4 py-2 rounded-sm placeholder-black bg-white border border-gray-300 focus:outline-none sm:flex-grow"
+              readOnly
             />
             <input
               placeholder="Check-out"
+              value={data.checkOut}
               className="text-xs px-4 py-2 rounded-sm placeholder-black bg-white border border-gray-300 focus:outline-none sm:flex-grow"
+              readOnly
             />
 
             <input
               type="text"
               placeholder="2 adult, 0 children - 1 room"
+              value={`${data.adults} adult, ${data.children} children - ${data.rooms} room`}
               className="placeholder-black bg-white border border-gray-300 px-4 py-2 sm:flex-grow"
+             disabled
             />
             <SearchButton />
           </div>
@@ -109,9 +182,7 @@ const Page = () => {
       </div>
 
       <div className="sm:pl-44 px-4 mt-8">
-        <div
-          className="grid grid-cols-1 sm:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] gap-8"
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] gap-8">
           {/* ซ้าย: Review + Check-in/out + Guest Details */}
           <div className="flex flex-col space-y-6">
             {/* Review your booking */}
@@ -127,7 +198,7 @@ const Page = () => {
                       href="#"
                       className="text-blue-700 font-bold hover:underline"
                     >
-                      Holiday In Resort
+                      {hotelData ? hotelData.country : "-"}
                     </a>
                     <div className="flex items-center space-x-1">
                       {[...Array(4)].map((_, i) => (
@@ -150,15 +221,15 @@ const Page = () => {
                     </div>
                   </div>
                   <p className="text-sm text-gray-600">
-                    Tambudki, Arpora, goa, Goa, India
+                  {hotelData ? hotelData.city : "-"}
                   </p>
                   <p className="text-xs text-gray-500 mt-1">
-                    This hotel is reviewed by global firm
+                  {hotelData ? hotelData.description : "-"}
                   </p>
                 </div>
                 <img
-                  src="/Explore_full.png"
-                  alt="hotel"
+                  src={hotelData?.imageUrl || "/placeholder.png"}
+                  alt={hotelData?.name || "Loading..."}
                   className="rounded-md object-cover w-full mt-1 sm:mt-0 sm:w-40 h-20"
                 />
               </div>
@@ -170,26 +241,27 @@ const Page = () => {
                 <div className="mr-4 sm:mr-20 ">
                   <p className="text-xs sm:text-sm text-gray-600">Check-in</p>
                   <p className="font-semibold text-black text-base">
-                    Sunday 21, Dec <br />
+                    {data.checkIn} <br />
                     <span className="text-xs font-normal">10am</span>
                   </p>
                 </div>
                 <button className="bg-violet-300 text-blue-800 my-4 py-2 px-8 sm:px-8 sm:py-2 rounded-md whitespace-nowrap">
-                  1 night
-                </button>
+  {hotelData?.nights || "Loading..."} night
+</button>
+
               </div>
 
               <div className="flex justify-between items-center mt-2 sm:mt-0 sm:px-4">
                 <div className="mr-2 sm:mr-20">
                   <p className="text-xs sm:text-sm text-gray-600">Check-out</p>
                   <p className="font-semibold text-black text-base">
-                    Monday 22,Dec <br />
+                    {data.checkOut} <br />
                     <span className="text-xs font-normal">10am</span>
                   </p>
                 </div>
 
                 <div className="font-semibold whitespace-nowrap text-base">
-                  2 Adult - 1 room
+                  {`${data.adults} Adult, ${data.children} children - ${data.rooms} room`}
                 </div>
               </div>
             </div>
@@ -283,11 +355,11 @@ const Page = () => {
                 </p>
               </div>
               <div className="flex flex-col text-right text-blue-300 font-semibold w-28">
-                <p>1,000.00</p>
+              <p>{hotelData ? hotelData.pricePerNight : "-"}</p>
                 <p>0.00</p>
-                <p>1,000.00</p>
-                <p>140.00</p>
-                <p className="mt-2 text-xl font-bold text-blue-600">1,140.00</p>
+                <p>{hotelData ? hotelData.pricePerNight : "-"}</p>
+                <p>0.07%</p>
+                <p className="mt-2 text-xl font-bold text-blue-600">{hotelData ? hotelData.totalAmount : "-"}</p>
               </div>
             </div>
 

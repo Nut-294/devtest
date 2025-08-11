@@ -77,7 +77,7 @@ const Detail = ({ hotel }) => {
 
   const handleBookNow = (roomType) => {
     if (!validateBooking()) return;
-    window.location.href = `/review-hotel/${hotel.id}?roomType=${roomType}&checkIn=${checkIn}&checkOut=${checkOut}&adults=${adults}&children=${children}&rooms=${rooms}`;
+    window.location.href = `/review-hotel/${hotel.id}?country=${hotel.country}&description=${hotel.description}&price=${hotel.price}&imageUrl=${hotel.imageUrl}&roomType=${roomType}&checkIn=${checkIn}&checkOut=${checkOut}&adults=${adults}&children=${children}&rooms=${rooms}`;
   };
 
   return (
@@ -184,7 +184,7 @@ const Detail = ({ hotel }) => {
               <div>{hotel.description}</div>
             </div>
             <div className="py-2 pl-2 sm:px-4 sm:py-2 mr-6 sm:mr-0 border text-sm sm:text-base border-blue-500 bg-white text-blue-800 rounded-sm">
-              Price Starting from {hotel.price} Bath
+              Price Starting from {hotel.price.toLocaleString()} Bath
             </div>
           </div>
 
@@ -199,7 +199,7 @@ const Detail = ({ hotel }) => {
               <div className="flex-grow">
                 <p className="px-2 sm:py-2 text-sm ">Standard Room</p>
                 <p className="px-2 sm:text-2xl sm:font-bold text-blue-600">
-                  {hotel.price}
+                  {hotel.price.toLocaleString()}
                 </p>
               </div>
               <button
@@ -219,7 +219,7 @@ const Detail = ({ hotel }) => {
               <div className="flex-grow">
                 <p className="px-2 sm:py-2 text-sm ">Deluxe</p>
                 <p className="px-2 sm:text-2xl sm:font-bold text-blue-600">
-                  {hotel.price}
+                  {hotel.price.toLocaleString()}
                 </p>
               </div>
               <button
