@@ -1,9 +1,68 @@
+"use client";
 import SearchButton from "@/components/form/SearchButtom";
 import SearchHotel from "@/components/hotel/SearchHotel";
 import Link from "next/link";
 import { FaAngleLeft } from "react-icons/fa";
+import { useState } from "react";
 
-const page = () => {
+const Page = () => {
+  // State สำหรับเก็บข้อมูลฟิลด์ Guest Details
+  const [guest, setGuest] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    mobile: "",
+  });
+
+  // State เก็บข้อความ error ของแต่ละฟิลด์
+  const [errors, setErrors] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    mobile: "",
+  });
+
+  // ฟังก์ชัน validate ฟิลด์ Guest Details
+  const validateGuestDetails = () => {
+    let valid = true;
+    const newErrors = { firstName: "", lastName: "", email: "", mobile: "" };
+
+    if (!guest.firstName.trim()) {
+      newErrors.firstName = "First Name is required";
+      valid = false;
+    }
+    if (!guest.lastName.trim()) {
+      newErrors.lastName = "Last Name is required";
+      valid = false;
+    }
+    if (!guest.email.trim()) {
+      newErrors.email = "Email is required";
+      valid = false;
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(guest.email.trim())
+    ) {
+      newErrors.email = "Invalid email address";
+      valid = false;
+    }
+    if (!guest.mobile.trim()) {
+      newErrors.mobile = "Mobile Number is required";
+      valid = false;
+    } else if (!/^\+?[0-9\s\-]{7,15}$/.test(guest.mobile.trim())) {
+      newErrors.mobile = "Invalid mobile number";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
+
+  // ฟังก์ชันจัดการกดปุ่ม Continue
+  const handleContinue = (e) => {
+    if (!validateGuestDetails()) {
+      e.preventDefault(); 
+    }
+  };
+
   return (
     <section className="mx-auto w-full">
       <div className="bg-blue-50 sm:pl-44 px-4 pt-8">
@@ -11,7 +70,7 @@ const page = () => {
           <div className="flex flex-col sm:flex-row items-center mb-1 ">
             <div className="flex items-center w-full sm:w-auto">
               <Link
-                href="/explore-hotel"
+                href="/hotel"
                 className="w-10 h-10 sm:mr-4 rounded-full bg-gray-100 hover:bg-gray-200 flex justify-center items-center"
               >
                 <FaAngleLeft />
@@ -139,26 +198,74 @@ const page = () => {
             <div className="sm:w-7/8 pr-4">
               <h4 className="font-semibold mb-2">Guest Details</h4>
               <div className="grid grid-cols-2 gap-4">
-                <input
-                  type="text"
-                  placeholder="First Name"
-                  className="border border-gray-300 rounded-md px-3 py-2"
-                />
-                <input
-                  type="text"
-                  placeholder="Last Name"
-                  className="border border-gray-300 rounded-md px-3 py-2"
-                />
-                <input
-                  type="email"
-                  placeholder="Email"
-                  className="border border-gray-300 rounded-md px-3 py-2"
-                />
-                <input
-                  type="tel"
-                  placeholder="Mobile Number"
-                  className="border border-gray-300 rounded-md px-3 py-2"
-                />
+                <div>
+                  <input
+                    type="text"
+                    placeholder="First Name"
+                    className={`border border-gray-300 rounded-md px-3 py-2 w-full ${
+                      errors.firstName ? "border-red-500" : ""
+                    }`}
+                    value={guest.firstName}
+                    onChange={(e) =>
+                      setGuest({ ...guest, firstName: e.target.value })
+                    }
+                  />
+                  {errors.firstName && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.firstName}
+                    </p>
+                  )}
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Last Name"
+                    className={`border border-gray-300 rounded-md px-3 py-2 w-full ${
+                      errors.lastName ? "border-red-500" : ""
+                    }`}
+                    value={guest.lastName}
+                    onChange={(e) =>
+                      setGuest({ ...guest, lastName: e.target.value })
+                    }
+                  />
+                  {errors.lastName && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.lastName}
+                    </p>
+                  )}
+                </div>
+                <div>
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    className={`border border-gray-300 rounded-md px-3 py-2 w-full ${
+                      errors.email ? "border-red-500" : ""
+                    }`}
+                    value={guest.email}
+                    onChange={(e) =>
+                      setGuest({ ...guest, email: e.target.value })
+                    }
+                  />
+                  {errors.email && (
+                    <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+                  )}
+                </div>
+                <div>
+                  <input
+                    type="tel"
+                    placeholder="Mobile Number"
+                    className={`border border-gray-300 rounded-md px-3 py-2 w-full ${
+                      errors.mobile ? "border-red-500" : ""
+                    }`}
+                    value={guest.mobile}
+                    onChange={(e) =>
+                      setGuest({ ...guest, mobile: e.target.value })
+                    }
+                  />
+                  {errors.mobile && (
+                    <p className="text-red-500 text-xs mt-1">{errors.mobile}</p>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -212,12 +319,16 @@ const page = () => {
               </label>
               <textarea
                 id="specialRequest"
-                rows="4"
+                rows={4}
                 className="w-full border border-gray-300 rounded-md px-3 py-2 resize-none"
               ></textarea>
             </div>
 
-            <Link href={"/payments"} className="mt-6 bg-[#4451ff] text-white px-8 py-3 rounded-md font-semibold hover:bg-[#3746d6] transition">
+            <Link
+              href={"/payments"}
+              onClick={handleContinue}
+              className="mt-6 bg-[#4451ff] text-white px-8 py-3 rounded-md font-semibold hover:bg-[#3746d6] transition inline-block"
+            >
               Continue
             </Link>
           </div>
@@ -226,27 +337,5 @@ const page = () => {
     </section>
   );
 };
-export default page;
 
-// import { fetchHotelDetail } from "@/action/action";
-
-// export default async function ReviewHotelPage({ params, searchParams }) {
-//   const hotel = await fetchHotelDetail({ id: params.id });
-
-//   const { roomType, checkIn, checkOut, guests } = searchParams;
-
-//   return (
-//     <div className="max-w-2xl mx-auto p-4">
-//       <h1 className="text-2xl font-bold mb-4">Review Hotel</h1>
-
-//       <div className="border p-4 rounded">
-//         <p>Hotel: {hotel.country}</p>
-//         <p>Room Type: {roomType}</p>
-//         <p>Check-in: {checkIn}</p>
-//         <p>Check-out: {checkOut}</p>
-//         <p>Guests: {guests}</p>
-//         <p className="text-blue-600 font-semibold">Price: {hotel.price} Bath</p>
-//       </div>
-//     </div>
-//   );
-// }
+export default Page;
