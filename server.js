@@ -57,7 +57,7 @@ nextApp.prepare().then(() => {
     const totalRoomPrice = pricePerNight * nights;
     const discount = 0; // mock ไม่มีส่วนลด
     const priceAfterDiscount = totalRoomPrice - discount;
-    const tax = Math.round(priceAfterDiscount * 0.07); 
+    const tax = priceAfterDiscount * 0.07; 
     const totalAmount = priceAfterDiscount + tax;
 
     res.json({

@@ -9,8 +9,6 @@ export default function Hero() {
       {/* ซ้าย: ข้อมูล */}
       <div className="w-full sm:w-1/2 text-center sm:text-left mt-6 sm:mt-[43px] sm:pl-6">
         <FormContainer />
-        RecentSearch
-        <RecentSearch />
       </div>
 
       {/* ขวา: รูปภาพ */}

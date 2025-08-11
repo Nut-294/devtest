@@ -1,39 +1,42 @@
-import Image from "next/image";
+"use client";
 import Link from "next/link";
-import { FaAngleLeft,FaAngleRight } from "react-icons/fa";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { BsCreditCard } from "react-icons/bs";
 import { TfiCreditCard } from "react-icons/tfi";
 import { VscCreditCard } from "react-icons/vsc";
-import { FaCcPaypal ,FaAlipay} from "react-icons/fa6";
-
+import { FaCcPaypal, FaAlipay } from "react-icons/fa6";
+import { useSearchParams } from "next/navigation";
+const methods = [
+  {
+    name: "Debit Card",
+    icon: <BsCreditCard />,
+  },
+  {
+    name: "UPI",
+    icon: <FaAlipay />,
+  },
+  {
+    name: "PhonePay",
+    icon: <FaCcPaypal />,
+  },
+  {
+    name: "Net Banking",
+    icon: <VscCreditCard />,
+  },
+  {
+    name: "Credit Card",
+    icon: <TfiCreditCard />,
+  },
+];
 const Payment = () => {
-  const methods = [
-    {
-      name: "Debit Card",
-      icon: <BsCreditCard/>,
-  
-    },
-    {
-      name: "UPI",
-      icon: <FaAlipay />,
-      
-    },
-    {
-      name: "PhonePay",
-      icon: <FaCcPaypal />,
-     
-    },
-    {
-      name: "Net Banking",
-      icon: <VscCreditCard/>,
-   
-    },
-    {
-      name: "Credit Card",
-      icon: <TfiCreditCard />,
+  const searchParams = useSearchParams();
 
-    },
-  ];
+  // อ่านค่าจาก query param (string)
+  const pricePerNight = searchParams.get("pricePerNight") || "0";
+  const totalAmount = searchParams.get("totalAmount") || "0";
+
+  const totalAmountNum = parseFloat(totalAmount) || 0;
+
   return (
     <section className="mx-auto w-full sm:pl-44 px-4 pt-8">
       {/* ส่วนบน */}
@@ -63,19 +66,18 @@ const Payment = () => {
           <div className="w-full max-w-md space-y-4">
             {methods.map((m) => (
               <Link
-              href={"/payment-done"}
-              key={m.name}
-              className="group flex items-center gap-4 p-4 rounded-lg cursor-pointer sm:hover:ml-8 hover:shadow-md hover:border hover:border-blue-600"
-            >
-              <div className="text-4xl">
-                {m.icon}
-              </div>
-              <span className="flex-1 text-gray-800">{m.name}</span>
-              {/* แสดงเฉพาะตอน hover */}
-              <span className="hidden group-hover:inline text-blue-500"><FaAngleRight/></span>
-            </Link>
+                href={"/payment-done"}
+                key={m.name}
+                className="group flex items-center gap-4 p-4 rounded-lg cursor-pointer sm:hover:ml-8 hover:shadow-md hover:border hover:border-blue-600"
+              >
+                <div className="text-4xl">{m.icon}</div>
+                <span className="flex-1 text-gray-800">{m.name}</span>
+                {/* แสดงเฉพาะตอน hover */}
+                <span className="hidden group-hover:inline text-blue-500">
+                  <FaAngleRight />
+                </span>
+              </Link>
             ))}
-
           </div>
         </div>
 
@@ -93,11 +95,14 @@ const Payment = () => {
                 </p>
               </div>
               <div className="flex flex-col text-right text-blue-300 font-semibold w-28">
-                <p>1,000.00</p>
-                <p>0.00</p>
-                <p>1,000.00</p>
-                <p>140.00</p>
-                <p className="mt-2 text-xl font-bold text-blue-600">1,140.00</p>
+                <p>{pricePerNight}</p>
+                <p>0</p>
+                <p>{pricePerNight}</p>
+                <p>{(parseFloat(pricePerNight) * 0.07).toFixed(2)}</p>
+                <p className="mt-2 text-xl font-bold text-blue-600">
+                  {" "}
+                  {totalAmountNum.toFixed(2)}
+                </p>
               </div>
             </div>
           </div>
@@ -107,24 +112,3 @@ const Payment = () => {
   );
 };
 export default Payment;
-
-// {methods.map((m) => (
-//   <div
-//     key={m.name}
-//     className={`flex items-center gap-4 p-3 rounded-lg cursor-pointer ${
-//       m.selected
-//         ? "border border-blue-500 shadow-sm ml-4"
-//         : "hover:shadow-md"
-//     }`}
-//   >
-//     <Image
-//       src={m.icon}
-//       alt={m.name}
-//       width={30}
-//       height={30}
-//       className="object-contain"
-//     />
-//     <span className="flex-1 text-gray-800">{m.name}</span>
-//     {m.selected && <span className="text-blue-500">{">"}</span>}
-//   </div>
-// ))}

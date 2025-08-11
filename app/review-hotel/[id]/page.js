@@ -64,7 +64,6 @@ const Page = () => {
     }
   }, [data]);
 
-  console.log("data", data);
   // State สำหรับเก็บข้อมูลฟิลด์ Guest Details
   const [guest, setGuest] = useState({
     firstName: "",
@@ -174,7 +173,7 @@ const Page = () => {
               placeholder="2 adult, 0 children - 1 room"
               value={`${data.adults} adult, ${data.children} children - ${data.rooms} room`}
               className="placeholder-black bg-white border border-gray-300 px-4 py-2 sm:flex-grow"
-             disabled
+              disabled
             />
             <SearchButton />
           </div>
@@ -221,10 +220,10 @@ const Page = () => {
                     </div>
                   </div>
                   <p className="text-sm text-gray-600">
-                  {hotelData ? hotelData.city : "-"}
+                    {hotelData ? hotelData.city : "-"}
                   </p>
                   <p className="text-xs text-gray-500 mt-1">
-                  {hotelData ? hotelData.description : "-"}
+                    {hotelData ? hotelData.description : "-"}
                   </p>
                 </div>
                 <img
@@ -246,9 +245,8 @@ const Page = () => {
                   </p>
                 </div>
                 <button className="bg-violet-300 text-blue-800 my-4 py-2 px-8 sm:px-8 sm:py-2 rounded-md whitespace-nowrap">
-  {hotelData?.nights || "Loading..."} night
-</button>
-
+                  {hotelData?.nights || "Loading..."} night
+                </button>
               </div>
 
               <div className="flex justify-between items-center mt-2 sm:mt-0 sm:px-4">
@@ -355,11 +353,17 @@ const Page = () => {
                 </p>
               </div>
               <div className="flex flex-col text-right text-blue-300 font-semibold w-28">
-              <p>{hotelData ? hotelData.pricePerNight : "-"}</p>
-                <p>0.00</p>
                 <p>{hotelData ? hotelData.pricePerNight : "-"}</p>
-                <p>0.07%</p>
-                <p className="mt-2 text-xl font-bold text-blue-600">{hotelData ? hotelData.totalAmount : "-"}</p>
+                <p>0</p>
+                <p>{hotelData ? hotelData.pricePerNight : "-"}</p>
+                <p>
+                  {hotelData
+                    ? (parseFloat(hotelData.pricePerNight) * 0.07).toFixed(2)
+                    : "-"}
+                </p>
+                <p className="mt-2 text-xl font-bold text-blue-600">
+                  {hotelData ? hotelData.totalAmount.toFixed(2) : "-"}
+                </p>
               </div>
             </div>
 
@@ -397,7 +401,9 @@ const Page = () => {
             </div>
 
             <Link
-              href={"/payments"}
+              href={`/payments?pricePerNight=${
+                hotelData?.pricePerNight || 0
+              }&totalAmount=${hotelData?.totalAmount || 0}`}
               onClick={handleContinue}
               className="mt-6 bg-[#4451ff] text-white px-8 py-3 rounded-md font-semibold hover:bg-[#3746d6] transition inline-block"
             >
