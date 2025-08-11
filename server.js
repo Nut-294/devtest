@@ -55,7 +55,7 @@ nextApp.prepare().then(() => {
     // คำนวณราคา
     const pricePerNight = Math.round(hotel.price * roomTypeFactor);
     const totalRoomPrice = pricePerNight * nights;
-    const discount = 0; // mock ไม่มีส่วนลด
+    const discount = 0; 
     const priceAfterDiscount = totalRoomPrice - discount;
     const tax = priceAfterDiscount * 0.07; 
     const totalAmount = priceAfterDiscount + tax;

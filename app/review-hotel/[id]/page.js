@@ -340,7 +340,7 @@ const Page = () => {
             </div>
           </div>
 
-          {/* ขวา: สรุปราคา + Cancellation Charges */}
+          {/* ขวา: สรุปราคา */}
           <div className="space-y-6 sm:px-24">
             <div className="flex items-center space-x-4">
               <div className="flex flex-col w-full">

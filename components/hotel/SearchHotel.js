@@ -12,7 +12,7 @@ const SearchHotel = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // clone params เดิม
+    // params เดิม
     const params = new URLSearchParams(searchParams.toString());
 
     if (!search.trim()) {

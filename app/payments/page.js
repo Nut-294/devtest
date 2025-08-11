@@ -72,7 +72,6 @@ const Payment = () => {
               >
                 <div className="text-4xl">{m.icon}</div>
                 <span className="flex-1 text-gray-800">{m.name}</span>
-                {/* แสดงเฉพาะตอน hover */}
                 <span className="hidden group-hover:inline text-blue-500">
                   <FaAngleRight />
                 </span>

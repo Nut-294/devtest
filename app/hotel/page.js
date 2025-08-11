@@ -24,7 +24,7 @@ const Hotels = () => {
   return (
     <section className="sm:pl-44 px-4 mt-8">
       <div className="flex flex-col md:flex-row">
-        {/* ซ้าย */}
+       
         <div className="flex-grow w-full">
           <div className="max-w-[1100px] ">
             <div className="w-full flex flex-col sm:flex-row">
@@ -42,7 +42,7 @@ const Hotels = () => {
               </div>
             </div>
 
-            {/* Recommended บรรทัดใหม่บน xs */}
+            {/* แนะนำ sm */}
             <aside className="block md:hidden mt-4 p-4 bg-gray-100 rounded">
               Recommended
               <ListRecom  hotels={hotels}/>
@@ -74,7 +74,7 @@ const Hotels = () => {
           </div>
         </div>
 
-        {/* Recommended */}
+        {/* แนะนำ */}
         <aside className="hidden md:block w-[286px] sm:ml-6 mt-12 p-4 bg-gray-100 rounded">
           Recommended
           <ListRecom hotels={hotels}/>
