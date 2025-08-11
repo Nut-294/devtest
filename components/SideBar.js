@@ -3,10 +3,10 @@ import { CiHome, CiSearch, CiHeart } from "react-icons/ci";
 import { FiUser } from "react-icons/fi";
 
 const menuItems = [
-  { label: "Home", href: "/", icon: <CiHome /> },
-  { label: "Explore", href: "/explore", icon: <CiSearch /> },
-  { label: "Trips", href: "/trips", icon: <CiHeart /> },
-  { label: "Profile", href: "/profile", icon: <FiUser /> },
+  { label: "Home", icon: <CiHome /> ,href:""},
+  { label: "Explore", icon: <CiSearch />,href:"/" },
+  { label: "Trips", icon: <CiHeart /> ,href:""},
+  { label: "Profile", icon: <FiUser /> ,href:""},
 ];
 
 const SideBar = () => {
@@ -15,9 +15,9 @@ const SideBar = () => {
       <div className="flex w-full sm:w-auto flex-row sm:flex-col justify-around sm:space-y-10">
         {menuItems.map((item) => (
           <Link
-            key={item.href}
+            key={item.label}
             href={item.href}
-            className="w-16 h-16 text-xl flex flex-col items-center justify-center rounded-full hover:rounded-full hover:bg-white hover:text-blue-800 transition "
+            className="w-16 h-16 text-xl flex flex-col items-center justify-center rounded-full hover:bg-white hover:text-blue-800 transition"
           >
             <div className="flex flex-col items-center justify-center text-center leading-tight">
               {item.icon}

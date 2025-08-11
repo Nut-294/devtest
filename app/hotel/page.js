@@ -29,7 +29,7 @@ const Hotels = () => {
           <div className="max-w-[1100px] ">
             <div className="w-full flex flex-col sm:flex-row">
               <div className="w-10 h-10 sm:mr-4  rounded-full flex-shrink-0 bg-gray-100 hover:bg-gray-200 flex justify-center items-center mb-2 sm:mb-0">
-                <Link href="/explore">
+                <Link href="/">
                   <FaAngleLeft />
                 </Link>
               </div>

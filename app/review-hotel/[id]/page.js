@@ -11,7 +11,7 @@ const page = () => {
           <div className="flex flex-col sm:flex-row items-center mb-1 ">
             <div className="flex items-center w-full sm:w-auto">
               <Link
-                href="/hotel"
+                href="/explore-hotel"
                 className="w-10 h-10 sm:mr-4 rounded-full bg-gray-100 hover:bg-gray-200 flex justify-center items-center"
               >
                 <FaAngleLeft />
@@ -217,9 +217,9 @@ const page = () => {
               ></textarea>
             </div>
 
-            <button className="mt-6 bg-[#4451ff] text-white px-8 py-3 rounded-md font-semibold hover:bg-[#3746d6] transition">
+            <Link href={"/payments"} className="mt-6 bg-[#4451ff] text-white px-8 py-3 rounded-md font-semibold hover:bg-[#3746d6] transition">
               Continue
-            </button>
+            </Link>
           </div>
         </div>
       </div>

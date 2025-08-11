@@ -63,7 +63,7 @@ const Payment = () => {
           <div className="w-full max-w-md space-y-4">
             {methods.map((m) => (
               <Link
-              href={"/payments-done"}
+              href={"/payment-done"}
               key={m.name}
               className="group flex items-center gap-4 p-4 rounded-lg cursor-pointer sm:hover:ml-8 hover:shadow-md hover:border hover:border-blue-600"
             >
