@@ -167,10 +167,10 @@ const page = () => {
           <div className="space-y-6 sm:px-24">
             <div className="flex items-center space-x-4">
               <div className="flex flex-col w-full">
-                <p className="mb-1">1 room X 1 night</p>
+                <p className="mb-1 text-gray-400">1 room X 1 night</p>
                 <p className="mb-1 text-gray-400">Total discount</p>
-                <p className="mb-1">Price after discount</p>
-                <p className="mb-1">Taxes & service fees</p>
+                <p className="mb-1 text-gray-400">Price after discount</p>
+                <p className="mb-1 text-gray-400">Taxes & service fees</p>
                 <p className="mt-2 font-bold text-black text-lg">
                   Total Amount
                 </p>

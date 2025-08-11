@@ -74,7 +74,7 @@ const Hotels = () => {
           </div>
         </div>
 
-        {/* Recommended ฝั่งขวาบน md+ */}
+        {/* Recommended */}
         <aside className="hidden md:block w-[286px] sm:ml-6 mt-12 p-4 bg-gray-100 rounded">
           Recommended
           <ListRecom hotels={hotels}/>
